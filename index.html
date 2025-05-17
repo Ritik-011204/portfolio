@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Suddhu the Owl</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.7.1/dist/leaflet.css"/>
+</head>
+<body>
+  <div class="app-container">
+    <h1>Suddhu the Owl 🦉</h1>
+    <p id="intro-text">Helping you travel safely and wisely!</p>
+
+    <div class="language-switcher">
+      <label for="language">Language:</label>
+      <select id="language" onchange="setLanguage()">
+        <option value="en">English</option>
+        <option value="hi">हिन्दी</option>
+        <option value="bn">বাংলা</option>
+      </select>
+    </div>
+
+    <div class="location-inputs">
+      <button onclick="getCurrentLocation()" id="loc-btn">Use My Current Location</button>
+      <input type="text" id="destination" placeholder="Enter your destination" />
+      <select id="transport-mode">
+        <option value="car">Car</option>
+        <option value="bike">Bike</option>
+        <option value="foot">Walking</option>
+        <option value="public_transport">Public Transport</option>
+      </select>
+      <button onclick="getTravelDetails()" id="go-btn">Go!</button>
+    </div>
+
+    <div id="results" class="results"></div>
+    <div id="distance-time" class="results"></div>
+
+    <button id="toggle-directions" onclick="toggleDirections()" style="display: none;">Show Directions</button>
+    <div id="directions" class="results directions-box" style="display: none;"></div>
+
+    <div id="map" class="map-container"></div>
+  </div>
+
+  <script src="https://unpkg.com/leaflet@1.7.1/dist/leaflet.js"></script>
+  <script src="script.js"></script>
+</body>
+</html>
