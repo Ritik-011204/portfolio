@@ -6,18 +6,45 @@
   <title>Ritik Chakraborty | Portfolio</title>
 
   <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap" rel="stylesheet" />
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet" />
 
   <!-- AOS Animation -->
   <link href="https://unpkg.com/aos@2.3.4/dist/aos.css" rel="stylesheet" />
 
   <!-- Font Awesome -->
   <script src="https://kit.fontawesome.com/a076d05399.js" crossorigin="anonymous"></script>
+  <link href="https://fonts.googleapis.com/css2?family=Pacifico&display=swap" rel="stylesheet">
 
   <!-- Particles.js -->
   <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
 
   <style>
+    /* CSS Variables for light/dark mode */
+    :root {
+      --bg-gradient-dark: linear-gradient(135deg, #000a0f, #00332c);
+      --bg-gradient-light: linear-gradient(135deg, #89d4cf, #6eacfa);
+      --color-text-dark: #cdeeda;
+      --color-text-light: #004466;
+
+      --nav-bg-dark: rgba(0, 51, 40, 0.85);
+      --nav-bg-light: rgba(137, 212, 207, 0.85);
+
+      --section-bg-dark: rgba(0, 51, 40, 0.8);
+      --section-bg-light: rgba(110, 172, 250, 0.2);
+
+      --project-bg-dark: #004d33;
+      --project-bg-light: #a0d8f7;
+
+      --li-bg-dark: #005840;
+      --li-bg-light: #7bb1f3;
+
+      --social-bg-dark: #22ffcc;
+      --social-bg-light: #5fb1f7;
+
+      --social-color-dark: #00332c;
+      --social-color-light: #003366;
+    }
+
     /* Reset */
     * { margin: 0; padding: 0; box-sizing: border-box; }
     body {
@@ -28,6 +55,7 @@
       scroll-behavior: smooth;
       line-height: 1.6;
       min-height: 100vh;
+      transition: background 0.5s ease, color 0.5s ease;
     }
     a { color: inherit; text-decoration: none; }
 
@@ -38,14 +66,15 @@
       height: 100%;
       z-index: -1;
       top: 0; left: 0;
-      background: linear-gradient(135deg, #000a0f, #00332c);
+      background: var(--bg-gradient-dark);
+      transition: background 0.5s ease;
     }
 
     /* Navbar */
     nav {
       position: fixed;
       top: 0; width: 100%;
-      background: rgba(0, 51, 40, 0.85);
+      background: var(--nav-bg-dark);
       padding: 1rem 2rem;
       display: flex; justify-content: space-between; align-items: center;
       z-index: 999;
@@ -53,6 +82,7 @@
       backdrop-filter: blur(8px);
       font-weight: 600;
       letter-spacing: 0.04em;
+      transition: background 0.5s ease;
     }
     .logo {
       font-weight: 700;
@@ -63,6 +93,46 @@
       cursor: default;
       user-select: none;
       letter-spacing: 0.08em;
+      .logo.modern-r {
+      position: relative;
+      font-size: 2.6rem;
+      font-weight: 800;
+      background: linear-gradient(45deg, #22ffcc, #00b3b3);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      letter-spacing: 0.1em;
+      text-shadow: 0 0 15px #22ffccaa;
+      animation: pulseGlow 2s infinite ease-in-out;
+      user-select: none;
+    }
+
+    /* Animated circular glow */
+    .logo.modern-r::before {
+      content: '';
+      position: absolute;
+      top: 50%; left: 50%;
+      transform: translate(-50%, -50%);
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34,255,204,0.3) 0%, transparent 70%);
+      box-shadow: 0 0 20px #22ffcc66, 0 0 40px #22ffcc55;
+      animation: spinGlow 4s linear infinite;
+      z-index: -1;
+    }
+
+    /* Glow pulsing effect */
+    @keyframes pulseGlow {
+      0%, 100% { text-shadow: 0 0 10px #22ffcc66, 0 0 20px #00b3b366; }
+      50% { text-shadow: 0 0 20px #22ffccaa, 0 0 40px #00b3b3aa; }
+    }
+
+    /* Spin effect around the R */
+    @keyframes spinGlow {
+      0% { transform: translate(-50%, -50%) rotate(0deg); }
+      100% { transform: translate(-50%, -50%) rotate(360deg); }
+    }
+
     }
     .nav-links {
       display: flex;
@@ -80,6 +150,25 @@
       background: #22ffcc;
       color: #00332c;
       box-shadow: 0 0 10px #22ffccaa;
+    }
+
+    /* Dark/Light toggle button */
+    #mode-toggle {
+      cursor: pointer;
+      background: transparent;
+      border: 2px solid #22ffcc;
+      padding: 6px 12px;
+      border-radius: 25px;
+      color: #22ffcc;
+      font-weight: 600;
+      font-size: 1rem;
+      user-select: none;
+      transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+    }
+    #mode-toggle:hover {
+      background-color: #22ffcc;
+      color: #00332c;
+      border-color: #00332c;
     }
 
     .hamburger {
@@ -103,7 +192,7 @@
       .nav-links {
         display: none;
         flex-direction: column;
-        background: rgba(0, 51, 40, 0.95);
+        background: var(--nav-bg-dark);
         position: absolute;
         top: 100%;
         right: 0;
@@ -112,6 +201,7 @@
         border-radius: 0 0 0 12px;
         box-shadow: 0 4px 15px rgba(34, 255, 204, 0.7);
         z-index: 998;
+        transition: background 0.5s ease;
       }
       .nav-links.active {
         display: flex;
@@ -133,6 +223,7 @@
       position: relative;
       gap: 1rem;
       color: #a6f0d4;
+      transition: color 0.5s ease;
     }
     header img {
       width: 140px;
@@ -142,7 +233,7 @@
       box-shadow: 0 0 20px #22ffcccc;
       object-fit: cover;
       filter: drop-shadow(0 0 6px #22ffcc88);
-      transition: transform 0.3s ease;
+      transition: transform 0.3s ease, border-color 0.5s ease, box-shadow 0.5s ease;
     }
     header img:hover {
       transform: scale(1.05) rotate(5deg);
@@ -157,6 +248,7 @@
       letter-spacing: 0.1em;
       user-select: none;
       text-shadow: 0 0 12px #22ffccaa;
+      transition: background 0.5s ease, text-shadow 0.5s ease;
     }
     .typewriter {
       font-size: 1.8rem;
@@ -169,6 +261,7 @@
       animation: blink-caret 0.8s steps(1) infinite;
       user-select: none;
       letter-spacing: 0.06em;
+      transition: border-color 0.5s ease, color 0.5s ease;
     }
     @keyframes blink-caret {
       0%, 50% { border-color: #22ffcc; }
@@ -177,150 +270,366 @@
 
     /* Sections */
     section {
-      padding: 5rem 1rem;
-      max-width: 1100px;
-      margin: 0 auto 4rem;
-      background: rgba(0, 51, 40, 0.8);
+      padding: 6rem 2rem 3rem;
+      max-width: 900px;
+      margin: 0 auto;
+      background: var(--section-bg-dark);
       border-radius: 16px;
-      box-shadow: 0 0 30px #22ffcc66;
-      color: #cdeeda;
-      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      box-shadow: 0 0 15px #22ffccaa;
+      margin-bottom: 4rem;
+      transition: background 0.5s ease, box-shadow 0.5s ease;
     }
-    section:hover {
-      transform: translateY(-8px);
-      box-shadow: 0 0 40px #22ffccbb;
-    }
-    h2 {
-      font-size: 2.4rem;
-      margin-bottom: 1.8rem;
-      border-left: 8px solid #22ffcc;
-      padding-left: 1.2rem;
+    section h2 {
+      font-size: 2.8rem;
+      margin-bottom: 1.6rem;
+      font-weight: 600;
+      background: linear-gradient(90deg, #22ffcc, #004d33);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
       user-select: none;
-      letter-spacing: 0.04em;
-      text-shadow: 0 0 8px #22ffcc99;
+      letter-spacing: 0.07em;
     }
-    p {
-      font-size: 1.2rem;
-      line-height: 1.7;
-      color: #b2fff0;
+    section p {
+      font-size: 1.15rem;
+      color: #99f9e1;
+      margin-bottom: 1.5rem;
+      line-height: 1.5;
     }
 
-    /* Project Grid */
-    .project-grid {
+    /* Projects */
+    .projects {
       display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
-      gap: 2rem;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.4rem;
     }
-    .project-card {
-      background: #004d33;
-      padding: 2rem;
-      border-radius: 16px;
-      box-shadow: 0 4px 20px #22ffccaa;
-      text-align: center;
-      font-weight: 700;
-      color: #a6f0d4;
+    .project {
+      background: var(--project-bg-dark);
+      padding: 1.2rem 1.4rem;
+      border-radius: 12px;
+      box-shadow: 0 0 12px #22ffccaa;
+      transition: background 0.5s ease, box-shadow 0.5s ease;
       cursor: pointer;
-      transition: transform 0.35s cubic-bezier(0.4, 0, 0.2, 1), box-shadow 0.35s ease;
       user-select: none;
-      letter-spacing: 0.03em;
     }
-    .project-card:hover {
-      transform: translateY(-10px) scale(1.04);
-      box-shadow: 0 0 40px #22ffccdd, 0 0 80px #00ffccee;
+    .project h3 {
+      margin-bottom: 0.8rem;
+      font-weight: 600;
+      font-size: 1.3rem;
+      color: #a6f0d4;
+      text-shadow: 0 0 6px #22ffccbb;
+    }
+    .project p {
+      font-size: 1rem;
+      color: #8de3d5;
+    }
+    .project:hover {
+      background: #005840;
+      box-shadow: 0 0 25px #22ffccdd;
     }
 
-    ul {
-      list-style: none;
+    /* Skills */
+    ul.skills-list {
       display: flex;
       flex-wrap: wrap;
-      gap: 1.2rem;
-      justify-content: center;
+      gap: 0.9rem;
+      list-style: none;
+      margin-top: 1rem;
     }
-    li {
-      background: #005840;
-      padding: 0.7rem 1.6rem;
-      border-radius: 25px;
-      font-weight: 700;
-      box-shadow: 0 3px 10px #22ffccbb;
-      color: #b2fff0;
-      user-select: none;
-      letter-spacing: 0.02em;
-      transition: background-color 0.3s ease, box-shadow 0.3s ease;
-    }
-    li:hover {
-      background: #00ffcc;
-      color: #00332c;
-      box-shadow: 0 0 20px #00ffccdd;
-    }
-
-    footer {
-      text-align: center;
-      padding: 2rem;
-      background: rgba(0, 51, 40, 0.9);
-      color: #8dded1;
+    ul.skills-list li {
+      background: var(--li-bg-dark);
+      color: #a6f0d4;
+      padding: 0.6rem 1rem;
+      border-radius: 20px;
+      font-weight: 600;
       font-size: 1rem;
-      letter-spacing: 0.03em;
+      box-shadow: 0 0 12px #22ffccaa;
       user-select: none;
+      transition: background 0.5s ease, box-shadow 0.5s ease;
+    }
+    ul.skills-list li:hover {
+      background: #007a4d;
+      box-shadow: 0 0 25px #22ffccdd;
     }
 
-    /* Social Icons (Floating) */
-    .social-icons {
-      position: fixed;
-      top: 50%;
-      left: 15px;
-      transform: translateY(-50%);
+    /* Contact */
+    .contact-list {
       display: flex;
       flex-direction: column;
-      gap: 1.2rem;
-      z-index: 1000;
+      gap: 1rem;
+      margin-top: 1.2rem;
     }
-    .social-icons a {
-      width: 44px;
-      height: 44px;
-      background: #22ffcc;
+    .contact-list a {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      font-size: 1.2rem;
+      font-weight: 600;
+      color: #a6f0d4;
+      padding: 0.4rem 0.7rem;
+      border-radius: 10px;
+      transition: background-color 0.3s ease, color 0.3s ease;
+      user-select: none;
+      box-shadow: 0 0 10px #22ffcc99;
+    }
+    .contact-list a:hover {
+      background-color: #22ffcc;
       color: #00332c;
-      border-radius: 50%;
+      box-shadow: 0 0 20px #22ffcccc;
+    }
+    .contact-list a i {
+      font-size: 1.6rem;
+      color: #22ffcc;
+      transition: color 0.3s ease;
+    }
+
+    /* Social icons in footer */
+    footer {
+      padding: 2rem 1rem;
+      text-align: center;
+      background: var(--section-bg-dark);
+      color: #a6f0d4;
+      font-weight: 500;
+      user-select: none;
+      letter-spacing: 0.04em;
+      border-radius: 0 0 16px 16px;
+      box-shadow: 0 0 15px #22ffccaa;
+      transition: background 0.5s ease, color 0.5s ease;
+    }
+    footer .social-icons {
+      margin: 1rem 0 0;
+      display: flex;
+      justify-content: center;
+      gap: 1.2rem;
+    }
+    footer .social-icons a {
+      color: #22ffcc;
+      font-size: 1.8rem;
+      transition: color 0.3s ease;
+    }
+    footer .social-icons a:hover {
+      color: #004d33;
+    }
+
+    /* Dark mode styles */
+    body.light-mode {
+      background: var(--bg-gradient-light);
+      color: var(--color-text-light);
+    }
+    body.light-mode #particles-js {
+      background: var(--bg-gradient-light);
+    }
+    body.light-mode nav {
+      background: var(--nav-bg-light);
+    }
+    body.light-mode .nav-links {
+      background: var(--nav-bg-light);
+    }
+    body.light-mode header {
+      color: var(--color-text-light);
+    }
+    body.light-mode header h1 {
+      background: linear-gradient(90deg, #004466, #89d4cf);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: none;
+    }
+    body.light-mode .typewriter {
+      border-right-color: #004466;
+      color: #004466;
+    }
+    body.light-mode section {
+      background: var(--section-bg-light);
+      box-shadow: 0 0 15px #6eacfa88;
+      color: var(--color-text-light);
+    }
+    body.light-mode .project {
+      background: var(--project-bg-light);
+      box-shadow: 0 0 15px #6eacfaaa;
+      color: var(--color-text-light);
+    }
+    body.light-mode .project:hover {
+      background: #437fca;
+      box-shadow: 0 0 30px #6eacfaee;
+      color: #e0f2ff;
+    }
+    body.light-mode ul.skills-list li {
+      background: var(--li-bg-light);
+      color: #003366;
+      box-shadow: 0 0 12px #6eacfaaa;
+    }
+    body.light-mode ul.skills-list li:hover {
+      background: #3465a4;
+      box-shadow: 0 0 25px #6eacfaee;
+      color: #d5e8f6;
+    }
+    body.light-mode .contact-list a {
+      color: #004466;
+      box-shadow: 0 0 12px #6eacfaaa;
+    }
+    body.light-mode .contact-list a:hover {
+      background-color: #6eacfa;
+      color: #003366;
+      box-shadow: 0 0 25px #6eacfaee;
+    }
+    body.light-mode .contact-list a i {
+      color: #5fb1f7;
+    }
+    body.light-mode footer {
+      background: var(--section-bg-light);
+      color: #004466;
+      box-shadow: 0 0 15px #6eacfa88;
+    }
+    body.light-mode footer .social-icons a {
+      color: #5fb1f7;
+    }
+    body.light-mode footer .social-icons a:hover {
+      color: #003366;
+    }
+    body.light-mode #mode-toggle {
+      border-color: #004466;
+      color: #004466;
+    }
+    body.light-mode #mode-toggle:hover {
+      background-color: #004466;
+      color: #89d4cf;
+      border-color: #89d4cf;
+    }
+    /* Adjust font colors only for light mode */
+    body.light-mode {
+      color: #2a2a2a; /* Change main text color */
+    }
+
+    body.light-mode section p {
+      color: #333333; /* Paragraph text */
+    }
+
+    body.light-mode header {
+      color: #1a1a1a; /* Header main color */
+    }
+
+    body.light-mode .nav-links a {
+      color: #1a1a1a; /* Nav links */
+    }
+
+    body.light-mode .nav-links a:hover {
+      color: #004466; /* Keep your hover color */
+    }
+    body.light-mode header h1 {
+      background: linear-gradient(90deg, #002244, #004466);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    }
+
+    body.light-mode section h2 {
+      background: linear-gradient(90deg, #002244, #004466);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      text-shadow: 0 1px 1px rgba(0, 0, 0, 0.2);
+    }
+    body.light-mode .logo.modern-r {  
+      background: linear-gradient(45deg, #004466, #0077aa);
+      text-shadow: 0 0 10px #6eacfa88;
+    }
+
+    body.light-mode .logo.modern-r::before {
+      background: radial-gradient(circle, rgba(110,172,250,0.3) 70%, transparent 100%);
+      box-shadow: 0 0 20px #62a5f666, 0 0 40px #4e6e9544;
+    }
+    .logo-wrapper {
+      position: relative;
+      width: 80px;
+      height: 80px;
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.4rem;
-      box-shadow: 0 0 12px #00ffcccc;
-      transition: background 0.3s ease, box-shadow 0.3s ease, transform 0.3s ease;
-      user-select: none;
     }
-    .social-icons a:hover {
-      background: #00ffcc;
-      box-shadow: 0 0 24px #00ffccee;
-      transform: scale(1.15);
+
+    .logo-text {
+      font-size: 3rem;
+      font-weight: bold;
+      font-family: 'Segoe UI', sans-serif;
+      background: linear-gradient(100deg, #00ffcc, #0077ff);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      z-index: 2;
+      position: relative;
+      text-shadow: 0 0 15px rgba(0, 255, 255, 0.);
+    }   
+
+    .logo-wrapper::before {
+      content: '';
+      position: absolute;
+      width: 110px;
+      height: 110px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(0, 255, 255, 0.1), transparent 70%);
+      box-shadow:
+        0 0 20px rgba(0, 255, 255, 0.3),
+        0 0 40px rgba(0, 255, 255, 0.2),
+        0 0 60px rgba(0, 255, 255, 0.1);
+      animation: rotateGlow cubic-bezier(0.165, 0.84, 0.44, 1) linear infinite;
+      z-index: 1;
     }
+
+    @keyframes rotateGlow {
+      0% {
+        transform: rotate(150deg);
+      }
+      100% {
+        transform: rotate(360deg);
+      }
+    }
+
+/* Optional Light Mode Tweak */
+body.light-mode .logo-text {
+  background: linear-gradient(45deg, #004466, #0099cc);
+  -webkit-background-clip: text;
+  text-shadow: 0 0 10px rgba(0, 153, 204, 0.3);
+}
+
+body.light-mode .logo-wrapper::before {
+  background: radial-gradient(circle, rgba(0, 153, 204, 0.15), transparent 70%);
+  box-shadow:
+    0 0 20px rgba(0, 153, 204, 0.3),
+    0 0 40px rgba(0, 153, 204, 0.2),
+    0 0 60px rgba(0, 153, 204, 0.1);
+}
+
   </style>
 </head>
 <body>
-
   <div id="particles-js"></div>
 
   <nav>
-    <div class="logo">Ritik</div>
-    <div class="nav-links" id="nav-links">
-      <a href="#about">About</a>
-      <a href="#projects">Projects</a>
-      <a href="#skills">Skills</a>
-      <a href="#contact">Contact</a>
+    <div class="logo-wrapper">
+        <span class="logo-text">R</span>
     </div>
-    <div class="hamburger" id="hamburger" aria-label="Toggle navigation menu" role="button" tabindex="0">
-      <span></span><span></span><span></span>
+
+    <div class="nav-links" id="navLinks">
+      <a href="#about">ABOUT</a>
+      <a href="#projects">PROJECTS</a>
+      <a href="#skills">SKILS</a>
+      <a href="#contact">CONTACT ME</a>
+    </div>
+    <button id="mode-toggle" aria-label="Toggle Dark/Light Mode">Light Mode</button>
+    <div class="hamburger" id="hamburger">
+      <span></span>
+      <span></span>
+      <span></span>
     </div>
   </nav>
 
   <header>
-    <img src="https://i.pravatar.cc/150?img=12" alt="Ritik Chakrabarty" />
+    <img src="https://avatars.githubusercontent.com/u/1191931?v=4" alt="Ritik Chakraborty" />
     <h1>RITIK CHAKRABORTY</h1>
     <div class="typewriter" id="typewriter"></div>
   </header>
 
-  <section id="about" data-aos="fade-up" data-aos-delay="100">
-    <h2>About Me</h2>
-    <p>Hey there! I'm Ritik Chakraborty, a passionate Full Stack Web Developer with a knack for building sleek, functional, and user-friendly websites and applications. My journey into the world of code started with a deep dive into C programming, where I built a strong foundation in problem-solving and logic building.
+  <section id="about" data-aos="fade-up">
+    <h2>ABOUT ME</h2>
+    <p>
+     Hey there! I'm Ritik Chakraborty, a passionate Full Stack Web Developer with a knack for building sleek, functional, and user-friendly websites and applications. My journey into the world of code started with a deep dive into C programming, where I built a strong foundation in problem-solving and logic building.
 
 Over time, I mastered Python, which opened up doors to automation, backend development, and even a bit of AI exploration. Currently, I’m sharpening my skills in JavaScript and Java, constantly pushing myself to stay ahead in the ever-evolving tech landscape.
 
@@ -330,128 +639,158 @@ When I’m not coding, you’ll find me exploring new technologies, learning new
 
 I believe in continuous learning, creativity, and collaboration — because that's what turns a good developer into a great one.
 
-</p>
+    </p>
   </section>
 
-  <section id="projects" data-aos="fade-up" data-aos-delay="200">
-    <h2>Projects</h2>
-    <div class="project-grid">
-      <div class="project-card" tabindex="0">Portfolio Website</div>
-      <div class="project-card" tabindex="0">E-commerce Store</div>
-      <div class="project-card" tabindex="0">Blog Platform</div>
-      <div class="project-card" tabindex="0">Chat Application</div>
+  <section id="projects" data-aos="fade-up">
+    <h2>PROJECTS</h2>
+    <div class="projects">
+      <div class="project">
+        <h3>Portfolio Website</h3>
+        <p>My own portfolio built with HTML, CSS, and JavaScript.</p>
+      </div>
+      <div class="project">
+        <h3>Weather App</h3>
+        <p>A simple weather app using API calls to display live weather info.</p>
+      </div>
     </div>
   </section>
 
-  <section id="skills" data-aos="fade-up" data-aos-delay="300">
-    <h2>Skills</h2>
-    <ul>
-      <li>👩‍💻HTML5</li>
-      <li>🧑‍🎨CSS3</li>
+  <section id="skills" data-aos="fade-up">
+    <h2>SKILLS</h2>
+    <ul class="skills-list">
+      <li>👩‍💻HTML</li>
+      <li>🧑‍🎨CSS</li>
       <li>✈️JavaScript</li>
       <li>🔥React</li>
       <li>💣Node.js</li>
-      <li>Git & GitHub</li>
     </ul>
   </section>
 
-  <section id="contact" data-aos="fade-up" data-aos-delay="400">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:chakrabortyritik1049@gmail.com" style="color:#00ffcc;">chakrabortyritik1049@gmail.com</a></p>
-    <p>LinkedIn: <a href="https://www.linkedin.com/in/ritik-chakraborty-942818334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="color:#00ffcc;">linkedin.com/in/ritikchakrabarty</a></p>
-    <p>Instagram: <a href="https://www.instagram.com/ritikchakraborty_official?igsh=bHJnMG80M3hhcjQ=" target="_blank" style="color:#00ffcc;">@ritikchakrabarty_official</a></p>
+  <section id="contact" data-aos="fade-up">
+    <h2>CONTACT ME</h2>
+    <div class="contact-list">
+      <p>Email: <a href="mailto:chakrabortyritik1049@gmail.com" style="color:#0ca388;">chakrabortyritik1049@gmail.com</a></p>
+      <p>LinkedIn: <a href="https://www.linkedin.com/in/ritik-chakraborty-942818334?utm_source=share&utm_campaign=share_via&utm_content=profile&utm_medium=android_app" target="_blank" style="color:#0ca388;">linkedin.com/in/ritikchakrabarty</a></p>
+      <p>Instagram: <a href="https://www.instagram.com/ritikchakraborty_official?igsh=bHJnMG80M3hhcjQ=" target="_blank" style="color:#0ca388;">@ritikchakrabarty_official</a></p>
+    </div>
   </section>
 
-  <footer>&copy; 2025 Ritik Chakrabarty. All rights reserved.</footer>
-
-  <!-- Social Media Floating Icons -->
-  <!-- <div id="contact" data-aos="fade-up" data-aos-delay="400">
-    <h2>Contact</h2>
-    <p>Email: <a href="mailto:ritik@example.com" style="color:#00ffcc;">ritik@example.com</a></p>
-    <p>LinkedIn: <a href="https://linkedin.com/in/ritikchakrabarty" target="_blank" style="color:#00ffcc;">linkedin.com/in/ritikchakrabarty</a></p>
-    <p>Instagram: <a href="https://instagram.com/ritikchakrabarty" target="_blank" style="color:#00ffcc;">@ritikchakrabarty</a></p>
-  </div>
-   -->
+  <footer>
+    &copy; 2025 Ritik Chakraborty
+    <div class="social-icons">
+      <a href="https://github.com/ritik" target="_blank" rel="noopener noreferrer" aria-label="GitHub"><i class="fab fa-github"></i></a>
+      <a href="https://linkedin.com/in/ritik" target="_blank" rel="noopener noreferrer" aria-label="LinkedIn"><i class="fab fa-linkedin"></i></a>
+      <a href="https://instagram.com/ritik" target="_blank" rel="noopener noreferrer" aria-label="Instagram"><i class="fab fa-instagram"></i></a>
+    </div>
+  </footer>
 
   <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
   <script>
-    AOS.init({ duration: 1200, once: true });
-
-    // Hamburger menu toggle
-    const hamburger = document.getElementById('hamburger');
-    const navLinks = document.getElementById('nav-links');
-    hamburger.addEventListener('click', () => navLinks.classList.toggle('active'));
-    hamburger.addEventListener('keydown', e => {
-      if(e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        navLinks.classList.toggle('active');
-      }
+    // Initialize AOS
+    AOS.init({
+      duration: 800,
+      once: true,
     });
 
-    // Particles.js config
-    particlesJS('particles-js', {
-      particles: {
-        number: { value: 70, density: { enable: true, value_area: 900 } },
-        color: { value: ["#00ffcc", "#009977", "#00332c"] },
-        shape: { type: "circle" },
-        opacity: { value: 0.6, random: true },
-        size: { value: 3.5, random: true },
-        line_linked: {
-          enable: true,
-          distance: 160,
-          color: "#00ffcc",
-          opacity: 0.25,
-          width: 1
-        },
-        move: { enable: true, speed: 2, direction: "none", out_mode: "bounce" }
-      },
-      interactivity: {
-        events: {
-          onhover: { enable: true, mode: "grab" },
-          onclick: { enable: true, mode: "push" }
-        },
-        modes: { grab: { distance: 140, line_linked: { opacity: 0.6 } } }
-      },
-      retina_detect: true
+    // Hamburger toggle for mobile nav
+    const hamburger = document.getElementById('hamburger');
+    const navLinks = document.getElementById('navLinks');
+    hamburger.addEventListener('click', () => {
+      navLinks.classList.toggle('active');
     });
 
     // Typewriter effect
     const typewriterEl = document.getElementById('typewriter');
-    const phrases = [
-      "Web Developer",
-      "Creative Coder",
-      "UI/UX Enthusiast",
-      "Tech Explorer"
-    ];
-    let current = 0;
-    let isDeleting = false;
-    let text = '';
-    let typeSpeed = 100;
+    const words = ['Web Developer', 'UI Designer', 'Tech Enthusiast'];
+    let wordIndex = 0;
+    let charIndex = 0;
+    let typing = true;
 
     function type() {
-      const fullText = phrases[current];
-      if (isDeleting) {
-        text = fullText.substring(0, text.length - 1);
+      if (typing) {
+        if (charIndex < words[wordIndex].length) {
+          typewriterEl.textContent += words[wordIndex][charIndex];
+          charIndex++;
+          setTimeout(type, 100);
+        } else {
+          typing = false;
+          setTimeout(type, 1500);
+        }
       } else {
-        text = fullText.substring(0, text.length + 1);
+        if (charIndex > 0) {
+          typewriterEl.textContent = words[wordIndex].substring(0, charIndex - 1);
+          charIndex--;
+          setTimeout(type, 50);
+        } else {
+          typing = true;
+          wordIndex = (wordIndex + 1) % words.length;
+          setTimeout(type, 300);
+        }
       }
-      typewriterEl.textContent = text;
-
-      if (!isDeleting && text === fullText) {
-        typeSpeed = 1800;
-        isDeleting = true;
-      } else if (isDeleting && text === '') {
-        isDeleting = false;
-        current = (current + 1) % phrases.length;
-        typeSpeed = 400;
-      } else {
-        typeSpeed = isDeleting ? 60 : 100;
-      }
-      setTimeout(type, typeSpeed);
     }
     type();
 
-  </script>
+    // Particles.js config
+    particlesJS('particles-js', {
+      particles: {
+        number: { value: 50, density: { enable: true, value_area: 800 } },
+        color: { value: '#22ffcc' },
+        shape: {
+          type: 'circle',
+          stroke: { width: 0, color: '#000000' },
+        },
+        opacity: { value: 0.5, random: false },
+        size: { value: 3, random: true },
+        line_linked: {
+          enable: true,
+          distance: 120,
+          color: '#22ffcc',
+          opacity: 0.4,
+          width: 1,
+        },
+        move: { enable: true, speed: 1.5, direction: 'none', random: false, straight: false, out_mode: 'bounce' },
+      },
+      interactivity: {
+        detect_on: 'canvas',
+        events: {
+          onhover: { enable: true, mode: 'repulse' },
+          onclick: { enable: true, mode: 'push' },
+          resize: true,
+        },
+        modes: {
+          repulse: { distance: 100 },
+          push: { particles_nb: 4 },
+        },
+      },
+      retina_detect: true,
+    });
 
+    // Dark/Light mode toggle
+    const modeToggleBtn = document.getElementById('mode-toggle');
+
+    function setMode(mode) {
+      if (mode === 'light') {
+        document.body.classList.add('light-mode');
+        modeToggleBtn.textContent = 'Dark Mode';
+      } else {
+        document.body.classList.remove('light-mode');
+        modeToggleBtn.textContent = 'Light Mode';
+      }
+      localStorage.setItem('mode', mode);
+    }
+
+    modeToggleBtn.addEventListener('click', () => {
+      if (document.body.classList.contains('light-mode')) {
+        setMode('dark');
+      } else {
+        setMode('light');
+      }
+    });
+
+    // Load saved mode preference or default to dark
+    const savedMode = localStorage.getItem('mode') || 'dark';
+    setMode(savedMode);
+  </script>
 </body>
 </html>
